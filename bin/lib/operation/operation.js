@@ -35,10 +35,14 @@ class Operation {
     buildParam(param) {
         const paramType = this.typeManager.getTypeNameInfoParameter(param);
         this.addImportedType(paramType);
+        var type = paramType.fullTypeName;
+        if(param.schema && param.schema['$ref'] && param.schema['$ref'] !== '') {
+            type = type.charAt(0).toUpperCase() + type.slice(1);
+        }
         return {
             paramName: param.name,
             paramDisplayName: param.name.replace(nonLitralRegx, "_"),
-            paramType: paramType.fullTypeName,
+            paramType: type,
             inBody: param.in === "body",
             inPath: param.in === "path",
             inQuery: param.in === "query",

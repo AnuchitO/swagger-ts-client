@@ -43,7 +43,7 @@ function loadSettings(configFile = null, override = {}) {
     if (configFile) {
         logger_1.logger.info(`Loading configuration from ${configFile}`);
     }
-    const configPath = path.resolve(process.cwd(), configFile || "ts-client.config.js");
+    const configPath = path.resolve(process.cwd(), configFile || "swagger-ts-client.config.js");
     let settingsFromFile = {};
     if (fs.existsSync(configPath)) {
         logger_1.logger.info(`Loading configuration from ${configPath}`);

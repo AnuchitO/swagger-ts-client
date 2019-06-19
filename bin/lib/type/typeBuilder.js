@@ -46,7 +46,7 @@ class TypeBuilder {
                     typeName = typeNameInfo_1.TypeNameInfo.fromSwaggerTypeName(type.typeNameInfo.partialTypeName + changeCase.pascalCase(propertyName));
                     this.inlineTypes.set(typeName.fullTypeName, prop);
                 }
-                type.addProperty(propertyName, typeName);
+                type.addProperty(propertyName, typeName, prop);
             }
         }
         return type;

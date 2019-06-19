@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const lib_1 = require("./lib");
 const usageString = `
 
-Executing swagger-ts-client with out any options, it tries to load settings from ./ts-client.config.js.`;
+Executing swagger-ts-client with out any options, it tries to load settings from ./swagger-ts-client.config.js.`;
 function getArgs() {
     const program = require("commander");
     program
@@ -38,3 +38,4 @@ function getArgs() {
     };
 }
 exports.getArgs = getArgs;
+//# sourceMappingURL=cli.js.map

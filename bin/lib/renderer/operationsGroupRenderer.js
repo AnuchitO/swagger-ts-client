@@ -16,7 +16,12 @@ class OperationsGroupRender extends renderer_1.AbstractRenderer {
         });
     }
     getRenderContext(operationGroup) {
-        const types = operationGroup.importedTypes;
+        let types = operationGroup.importedTypes;
+        if(types && types.length) {
+            for(var i=0; i< types.length; i++) {
+                types[i] = types[i].charAt(0).toUpperCase() + types[i].slice(1);
+            }
+        }
         return {
             imports: {
                 types: types && types.length ? types : null,
