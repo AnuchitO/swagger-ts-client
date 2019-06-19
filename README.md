@@ -1,10 +1,10 @@
-# swagger-ts-client [![Build Status](https://travis-ci.org/kjayasa/swagger-ts-client.svg?branch=master)](https://travis-ci.org/kjayasa/swagger-ts-client)
+# swagger-generate-ts-client [![Build Status](https://travis-ci.org/kjayasa/swagger-ts-client.svg?branch=master)](https://travis-ci.org/kjayasa/swagger-ts-client)
 
-Swagger-ts-client is a tool that generate TypeScript types and  http client from Swagger ([open api](https://www.openapis.org/)). The code generation is highly configurable through a configuration file. Refer [Configuration section](#Configuration) for more details.
+swagger-generate-ts-client is a tool that generate TypeScript types and  http client from Swagger ([open api](https://www.openapis.org/)). The code generation is highly configurable through a configuration file. Refer [Configuration section](#Configuration) for more details.
 
 The generated code can completely controlled by using  [Handlebar](http://handlebarsjs.com/) templates.Refer template section for more section. The default template generates http clients based on the [SuperAgent](http://visionmedia.github.io/superagent/) library.
 
-Swagger-ts-client can import swagger definition from multiple sources using provider plugins.The default provider imports JSON formated swagger definition file from the file system.There is also an Http provider built in, that can be configured to import swagger from a url.
+swagger-generate-ts-client can import swagger definition from multiple sources using provider plugins.The default provider imports JSON formated swagger definition file from the file system.There is also an Http provider built in, that can be configured to import swagger from a url.
 
 ## Some differences form other tools for the same purpose
 * provides a lot of control in code generation.
@@ -15,29 +15,29 @@ Swagger-ts-client can import swagger definition from multiple sources using prov
 # Whats new
 + Added option to register custom HandleBars helpers vis settings.  
 # Getting Started
-Swagger-ts-client is written in typescript nad runs on NodeJS and is packed with NPM . You need NodeJS installed to install and run Swagger-ts-client.
+swagger-generate-ts-client is written in typescript nad runs on NodeJS and is packed with NPM . You need NodeJS installed to install and run swagger-generate-ts-client.
 ## Installing
-swagger-ts-client and be installed globally locally as a dev dependency.
+swagger-generate-ts-client and be installed globally locally as a dev dependency.
 
 npm 
 ```
-$ npm install swagger-ts-client --save-dev
+$ npm install swagger-generate-ts-client --save-dev
 ```
 ## Generating Code
-when run with out any arguments , swagger-ts-client looks for a config file named ts-client.config.js and loads configuration from it.
+when run with out any arguments , swagger-generate-ts-client looks for a config file named swagger-ts-client.config.js and loads configuration from it.
 
 ```
-$ swagger-ts-client
+$ swagger-generate-ts-client
 ```
 
 A minimal all defaults no config file example.Loads swagger from ```swagger.json``` generates types to ```./generatedTypes/fooApiTypes.ts``` and generates Http Clients to ```./httpProxy/```
 ```
-$ swagger-ts-client -s ./swagger.json -t ./generatedTypes/fooApiTypes.ts -o ./httpProxy/
+$ swagger-generate-ts-client -s ./swagger.json -t ./generatedTypes/fooApiTypes.ts -o ./httpProxy/
 ```
 
 All generated types are generated into a single file. Operations, default are grouped by tag(swagger spec) and for each group a class is generated and written into separate files.
 # Configuration
-swagger-ts-client looks for a config file named ```ts-client.config.js``` and loads settings from it. Some configuration can be overridden by comment line args.
+swagger-generate-ts-client looks for a config file named ```swagger-ts-client.config.js``` and loads settings from it. Some configuration can be overridden by comment line args.
 ## Configuration file
 The configuration file needs to export a configuration object. The configuration object has the following schema.
 ```typescript
@@ -67,7 +67,9 @@ The configuration file needs to export a configuration object. The configuration
         outPutPath?: string;
         outFileNameTransformFn?: Function;
         templateTag?: any;
+        removeHostPath?: boolean;
     };
+    uppercaseFirstLetterOfRefType?: boolean;
 }
 ``` 
 For example; a simple config file.
@@ -204,9 +206,9 @@ module.exports=settings;
    Default is a function that returns ```operationGroup.ts```
 
 ## CLI
-Executing swagger-ts-client with out any options, it tries to load settings from ```./ts-client.config.js. ``` and generate code.
+Executing swagger-generate-ts-client with out any options, it tries to load settings from ```./swagger-ts-client.config.js. ``` and generate code.
 
-The recommended way of using swagger-ts-client is by putting all the configuration in the config file, but some options are provided which will the configuration settings from the config file. Using these options it might be possible to run swagger-ts-client with out a config file.
+The recommended way of using swagger-generate-ts-client is by putting all the configuration in the config file, but some options are provided which will the configuration settings from the config file. Using these options it might be possible to run swagger-generate-ts-client with out a config file.
 
 There are some options that can be used to change 
 

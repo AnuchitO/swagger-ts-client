@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeNameInfo_1 = require("./typeNameInfo");
+const settings_1 = require("../settings");
 class Type {
     constructor(swaggerTypeName) {
         this.swaggerTypeName = swaggerTypeName;
@@ -9,7 +10,10 @@ class Type {
     }
     get typeName() {
         var name = this.typeNameInfo.typeName;
-        return name.charAt(0).toUpperCase() + name.slice(1);
+        if (settings_1.settings.uppercaseFirstLetterOfRefType) {
+            name = name.charAt(0).toUpperCase() + name.slice(1);
+        }
+        return name;
     }
     get isGeneric() {
         return this.typeNameInfo.isGeneric;
@@ -22,12 +26,10 @@ class Type {
             propertyType = this.typeNameInfo.replaceWithGenericType(propertyType);
         }
         var name = propertyType.fullTypeName;
-        if(prop && prop['$ref'] && prop['$ref'] !== '') {
+        if (prop && prop['$ref'] && prop['$ref'] !== '' && settings_1.settings.uppercaseFirstLetterOfRefType) {
             name = name.charAt(0).toUpperCase() + name.slice(1);
-            this.properties.push({ propertyName, typeName: name });
-        } else {
-            this.properties.push({ propertyName, typeName: name});
         }
+        this.properties.push({ propertyName, typeName: name});
     }
 }
 exports.Type = Type;

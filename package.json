@@ -1,6 +1,6 @@
 {
-  "name": "swagger-ts-client",
-  "version": "0.9.8",
+  "name": "swagger-generate-ts-client",
+  "version": "1.0.0",
   "description": "A tool to generate typescript http clients and types from swagger definitions",
   "main": "./bin/main.js",
   "bin": "./bin/main.js",
@@ -42,5 +42,5 @@
     "tslint": "5.14.0",
     "typescript": "3.3.4000"
   },
-  "repository": "https://github.com/kjayasa/swagger-ts-client.git"
+  "repository": "https://github.com/kiennt2/swagger-ts-client.git"
 }

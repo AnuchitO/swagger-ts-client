@@ -79,13 +79,15 @@ class TsFromSwagger {
                 }
                 fixedPath = base + fixedPath;
             }
-            fixedPath = (host !== undefined) ? host + fixedPath : fixedPath;
-            if (schemes !== undefined && schemes.length > 0) {
-                if (schemes.filter(function (x) { return x.toLowerCase() == "https"; })) {
-                    fixedPath = "https://" + fixedPath;
-                }
-                else {
-                    fixedPath = "http://" + fixedPath;
+            if (!settings_1.settings.operations.removeHostPath) {
+                fixedPath = (host !== undefined) ? host + fixedPath : fixedPath;
+                if (schemes !== undefined && schemes.length > 0) {
+                    if (schemes.filter(function (x) { return x.toLowerCase() == "https"; })) {
+                        fixedPath = "https://" + fixedPath;
+                    }
+                    else {
+                        fixedPath = "http://" + fixedPath;
+                    }
                 }
             }
             newPaths[fixedPath] = swagger.paths[p];

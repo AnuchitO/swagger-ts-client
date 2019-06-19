@@ -102,7 +102,9 @@ class TypeNameInfo {
         else if (schema.type === "array" && schema.items) {
             const itemSchema = (schema.items instanceof Array) ? schema.items[0] : schema.items;
             var typename = this.getTypeNameInfoFromSchema(itemSchema).fullTypeName;
-            typename = typename.charAt(0).toUpperCase() + typename.slice(1);
+            if (settings_1.settings.uppercaseFirstLetterOfRefType) {
+                typename = typename.charAt(0).toUpperCase() + typename.slice(1);
+            }
             return TypeNameInfo.fromSwaggerTypeName(`Array<${typename}>`);
         }
         else if (schema.type === "object" && schema.properties) {

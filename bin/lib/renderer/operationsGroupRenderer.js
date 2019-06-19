@@ -17,7 +17,7 @@ class OperationsGroupRender extends renderer_1.AbstractRenderer {
     }
     getRenderContext(operationGroup) {
         let types = operationGroup.importedTypes;
-        if(types && types.length) {
+        if(types && types.length && settings_1.settings.uppercaseFirstLetterOfRefType) {
             for(var i=0; i< types.length; i++) {
                 types[i] = types[i].charAt(0).toUpperCase() + types[i].slice(1);
             }
