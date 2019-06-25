@@ -25,19 +25,39 @@ exports.settings = {
         outFileNameTransformFn: operationsGroupFilenameFn,
     },
 };
+function toPascalCase(string) {
+  return string.replace(new RegExp(/[-_]+/, 'g'), ' ').replace(new RegExp(/[^\w\s]/, 'g'), '').replace(
+      new RegExp(/\s+(.)(\w+)/, 'g'),
+      ($1, $2, $3) => `${$2.toUpperCase() + $3.toLowerCase()}`
+    ).replace(new RegExp(/\s/, 'g'), '').replace(new RegExp(/\w/), s => s.toUpperCase());
+}
 function operationsGroupFilenameFn(groupName) {
     return `${groupName}.ts`;
 }
 function operationsGroupNameTransformFn(operationName, httpVerb, operation) {
     if (operation.tags && operation.tags.length) {
-        return `${operation.tags[0]}HttpSvc`;
+        if(operation.tags[0],indexOf(' ') >= 0) {
+            var transformGroupName = toPascalCase(operation.tags[0]);
+            return `${transformGroupName}HttpRequest`;
+        } else {
+            return `${operation.tags[0]}HttpRequest`;
+        }        
     }
     else {
         return exports.settings.operations.ungroupedOperationsName;
     }
 }
 function operationsNameTransformFn(operationName, httpVerb, operation) {
-    return operation.operationId.replace(`${operation.tags && operation.tags.length ? operation.tags[0] : ""}_`, httpVerb);
+    if(operation.operationId) {
+        return operation.operationId.replace(`${operation.tags && operation.tags.length ? operation.tags[0].indexOf(' ') >= 0 ? toPascalCase(operation.tags[0]) : operation.tags[0] : ""}_`, httpVerb);    
+    } else {
+        var operationData = "";
+        operationData += httpVerb.charAt(0).toUpperCase() + httpVerb.slice(1);
+        if(operation.tags && operation.tags.length) {
+            operationData += toPascalCase(operation.tags[0]);
+        }
+        return operationData;
+    }    
 }
 function loadSettings(configFile = null, override = {}) {
     if (configFile) {

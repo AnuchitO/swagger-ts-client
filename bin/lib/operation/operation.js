@@ -15,18 +15,24 @@ class Operation {
         this.build();
     }
     build() {
-        this.responsesType = this.getResponse();
+        this.responsesType = this.getResponse();        
         if (this.swOpr.parameters && this.swOpr.parameters.length) {
             this.operationParams = this.swOpr.parameters.map((p) => this.buildParam(p));
         }
     }
     getResponse() {
+
         if (this.swOpr.responses && this.swOpr.responses["200"] && this.swOpr.responses["200"].schema) {
             const retType = this.typeManager.getTypeNameInfo(this.swOpr.responses["200"].schema);
             if (!typeNameInfo_1.TypeNameInfo.isJsPrimitive(retType.fullTypeName)) {
                 this.addImportedType(retType);
             }
-            return retType.fullTypeName;
+            if(this.swOpr.responses["200"].schema['$ref'] && this.swOpr.responses["200"].schema['$ref'] !== '' && settings_1.settings.uppercaseFirstLetterOfRefType) {
+                var responRef = retType.fullTypeName;
+                return responRef.charAt(0).toUpperCase() + responRef.slice(1);
+            } else {
+                return retType.fullTypeName;
+            }            
         }
         else {
             return "void";
