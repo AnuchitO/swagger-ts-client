@@ -68,6 +68,7 @@ The configuration file needs to export a configuration object. The configuration
         outFileNameTransformFn?: Function;
         templateTag?: any;
         removeHostPath?: boolean;
+        useSecureHost?: boolean;
     };
     uppercaseFirstLetterOfRefType?: boolean;
 }

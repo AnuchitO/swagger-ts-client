@@ -82,7 +82,7 @@ class TsFromSwagger {
             if (!settings_1.settings.operations.removeHostPath) {
                 fixedPath = (host !== undefined) ? host + fixedPath : fixedPath;
                 if (schemes !== undefined && schemes.length > 0) {
-                    if (schemes.filter(function (x) { return x.toLowerCase() == "https"; })) {
+                    if (settings_1.settings.operations.useSecureHost) {
                         fixedPath = "https://" + fixedPath;
                     }
                     else {
