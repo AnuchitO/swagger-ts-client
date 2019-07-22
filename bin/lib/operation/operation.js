@@ -50,6 +50,7 @@ class Operation {
             paramDisplayName: param.name.replace(nonLitralRegx, "_"),
             paramType: type,
             inBody: param.in === "body",
+            inFormData: param.in === "formData",
             inPath: param.in === "path",
             inQuery: param.in === "query",
         };
